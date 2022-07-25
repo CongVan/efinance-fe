@@ -13,7 +13,6 @@ import useSWR from 'swr';
 
 import { AppContainer } from '@/components/common';
 import { ETable } from '@/components/ui';
-import { useTablePagination } from '@/hooks/use_table_pagination';
 import { defaultRange, formatDateFilter, formatToLocalDate } from '@/lib/date';
 import { formatCurrency, formatNumber } from '@/lib/format';
 import { Meta } from '@/types/meta';
@@ -82,15 +81,14 @@ export const Orders: React.FC = () => {
     [],
   );
 
-  const refetch = () => {};
-
   const meta = useMemo(() => {
     return data?.pagination;
   }, [data]);
 
   return (
     <AppContainer
-      title={`Đơn hàng ${meta?.total_rows ? `(${formatNumber(meta?.total_rows)})` : ''}`}
+      title={`Đơn hàng`}
+      count={formatNumber(meta?.total_rows)}
       extraHeader={<ImportModal />}
     >
       <ETable

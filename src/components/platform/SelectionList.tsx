@@ -1,4 +1,4 @@
-import { Chip, ChipProps, Chips, Space, Stack, Text, Title } from '@mantine/core';
+import { Chip, ChipProps, Space, Stack, Text, Title } from '@mantine/core';
 import { FC, useState } from 'react';
 
 export const SelectionList: FC<{ onSelected: (val) => void }> = ({ onSelected }) => {
@@ -12,7 +12,7 @@ export const SelectionList: FC<{ onSelected: (val) => void }> = ({ onSelected })
   return (
     <Stack>
       <Text>Nền tảng:</Text>
-      <Chips
+      <Chip.Group
         multiple={false}
         defaultValue={'shopee'}
         value={value}
@@ -25,7 +25,7 @@ export const SelectionList: FC<{ onSelected: (val) => void }> = ({ onSelected })
         <Chip value="tiktok" disabled title="Đang phát triển">
           Tiktok
         </Chip>
-      </Chips>
+      </Chip.Group>
     </Stack>
   );
 };

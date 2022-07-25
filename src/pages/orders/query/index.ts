@@ -18,3 +18,13 @@ export const importOrder = async (body: any) => {
   });
   return data;
 };
+
+export const getHistoryImportOrders = async (params) => {
+  const { data } = await ApiClient.get<Meta<Job[]>>('/jobs', {
+    params: {
+      name: 'import_order',
+      ...params,
+    },
+  });
+  return data;
+};

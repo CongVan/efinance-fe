@@ -66,9 +66,8 @@ export const Payments: React.FC = () => {
 
   return (
     <AppContainer
-      title={`Thanh toán ${
-        meta?.total_rows ? `(${formatNumber(meta?.total_rows)})` : ''
-      }`}
+      title={`Thanh toán`}
+      count={formatNumber(meta?.total_rows)}
       extraHeader={<ImportModal />}
     >
       <ETable

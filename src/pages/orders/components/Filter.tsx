@@ -1,4 +1,4 @@
-import { Grid, Select } from '@mantine/core';
+import { Grid, NativeSelect, Select, Text } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
 import { FC, useEffect, useMemo, useState } from 'react';
@@ -22,10 +22,12 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
     return buildRangeFromFilter(props.filter);
   }, [props.filter]);
 
-  const [dates, setDates] = useState(null);
+  const [dates, setDates] = useState(defaultDate);
   const [filter, setFilter] = useState<{ date: [Date, Date]; verify_status: string }>({
     ...props.filter,
   });
+  const [verifyStatus, setVerifyStatus] = useState(props.filter?.verify_status || '');
+
   const [isMounted, setIsMounted] = useState(false);
 
   const defaultFilter = useMemo(() => {
@@ -34,9 +36,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
 
   const onChangeDate = (d: [Date | null, Date | null]) => {
     if (!isMounted) return;
-    console.log('====================================');
-    console.log('date change');
-    console.log('====================================');
+
     setDates(d);
     if (d[0] === null || d[1] === null) {
       return;
@@ -51,9 +51,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
 
   useEffect(() => {
     if (!isMounted) return;
-    console.log('====================================');
-    console.log('filter');
-    console.log('====================================');
+
     const { date, ...f } = filter;
     const filterParams = {
       ...defaultFilter,
@@ -64,8 +62,13 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
     props.onChange && props.onChange(filterParams);
   }, [filter]);
 
+  useEffect(() => {
+    if (!isMounted) return;
+    setFilter({ ...filter, verify_status: verifyStatus });
+  }, [verifyStatus]);
+
   return (
-    <>
+    <div>
       <Grid columns={4}>
         <Grid.Col span={1}>
           <DateRangePicker
@@ -81,17 +84,17 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
         </Grid.Col>
         <Grid.Col span={1}>
           <Select
-            width={'80px'}
             label="Đối soát"
             data={[
               { value: 'OK', label: 'Đúng' },
               { value: 'WRONG', label: 'Sai' },
             ]}
-            value={filter.verify_status}
-            onChange={(v) => setFilter({ ...filter, verify_status: v })}
+            value={verifyStatus}
+            dropdownComponent="div"
+            onChange={setVerifyStatus}
           />
         </Grid.Col>
       </Grid>
-    </>
+    </div>
   );
 };

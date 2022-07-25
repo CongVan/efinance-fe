@@ -22,7 +22,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
     return buildRangeFromFilter(props.filter);
   }, [props.filter]);
 
-  const [dates, setDates] = useState(null);
+  const [dates, setDates] = useState(defaultDate);
   const [filter, setFilter] = useState<{ date: [Date, Date] }>({
     ...props.filter,
   });
@@ -51,9 +51,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
 
   useEffect(() => {
     if (!isMounted) return;
-    console.log('====================================');
-    console.log('filter');
-    console.log('====================================');
+
     const { date, ...f } = filter;
     const filterParams = {
       ...defaultFilter,
@@ -76,6 +74,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
             value={dates}
             allowLevelChange={false}
             onChange={onChangeDate}
+
             // onDropdownClose={() => setFilter({ ...filter, date: dates })}
           />
         </Grid.Col>

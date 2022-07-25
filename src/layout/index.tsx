@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Button,
   Container,
+  createStyles,
   Group,
   Space,
   Stack,
@@ -21,38 +22,23 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import React, { useState } from 'react';
-import { Link, NavLink, To, useMatch, useResolvedPath } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  To,
+  useMatch,
+  useNavigate,
+  useResolvedPath,
+} from 'react-router-dom';
 import { Box, CurrencyDollar, Dashboard } from 'tabler-icons-react';
 
-const NavItem: React.FC<{ icon: any; to: To }> = ({ icon, children, to }) => {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
-
-  return (
-    <Button
-      component={NavLink}
-      to={to}
-      variant={match ? 'light' : 'subtle'}
-      color={match ? 'primary' : 'gray'}
-      styles={{
-        root: { height: '48px' },
-        inner: { justifyContent: 'start', padding: 'md' },
-      }}
-      fullWidth
-      leftIcon={
-        <ActionIcon color={match ? 'primary' : 'gray'} size="lg" radius="md">
-          {icon}
-        </ActionIcon>
-      }
-    >
-      {children}
-    </Button>
-  );
-};
+import { AppNavbar } from '@/components/common';
 
 export default function Layout({ children }) {
   const theme = useMantineTheme();
+  const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
+
   return (
     <AppShell
       styles={{
@@ -64,26 +50,7 @@ export default function Layout({ children }) {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       fixed
-      navbar={
-        <Navbar
-          p="xs"
-          hiddenBreakpoint="sm"
-          hidden={!opened}
-          width={{ sm: 200, lg: 260 }}
-        >
-          <>
-            <NavItem to="/" icon={<Dashboard />}>
-              Dashboard
-            </NavItem>
-            <NavItem to="/orders" icon={<Box />}>
-              Đơn hàng
-            </NavItem>
-            <NavItem to="/payments" icon={<CurrencyDollar />}>
-              Thanh toán
-            </NavItem>
-          </>
-        </Navbar>
-      }
+      navbar={<AppNavbar opened={opened} />}
       header={
         <Header height={56} p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>

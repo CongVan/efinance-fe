@@ -21,8 +21,8 @@ export const Home = () => {
         <Loader />
       ) : (
         <>
-          <Grid columns={4}>
-            <Grid.Col span={1}>
+          <Grid grow>
+            <Grid.Col md={1}>
               <Card>
                 <Stack
                   sx={{
@@ -37,7 +37,7 @@ export const Home = () => {
                 <Title>{formatNumber(data?.orders?.total || 0)}</Title>
               </Card>
             </Grid.Col>
-            <Grid.Col span={1}>
+            <Grid.Col md={1}>
               <Card>
                 <Stack
                   color="theme.red"

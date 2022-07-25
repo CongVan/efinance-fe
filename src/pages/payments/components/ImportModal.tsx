@@ -53,40 +53,28 @@ export const ImportModal: React.FC = () => {
         <SelectionList onSelected={setPlatform} />
         <Box mt={'md'}>
           <Dropzone
-            accept={MS_EXCEL_MIME_TYPE}
+            accept={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
             maxSize={10 * 1024 ** 2}
             loading={loading}
             onDrop={onDrop}
           >
-            {(status) => (
-              <>
-                <Group
-                  position="center"
-                  spacing="xl"
-                  style={{ minHeight: 220, pointerEvents: 'none' }}
-                >
-                  {file ? (
-                    <>
-                      <Text>{file.name}</Text>
-                    </>
-                  ) : status.rejected ? (
-                    <>File không hợp lệ</>
-                  ) : (
-                    <div>
-                      <Text size="xl" inline>
-                        Kéo thả hoặc nhấn vào đây để tải file lên
-                      </Text>
-                      <Text size="sm" color="dimmed" inline mt={7}>
-                        Tối đa 10MB, định dạng xlsx,xls
-                      </Text>
-                    </div>
-                  )}
-                </Group>
-              </>
-            )}
+            <Group
+              position="center"
+              spacing="sm"
+              style={{ minHeight: 220, pointerEvents: 'none' }}
+            >
+              <Dropzone.Accept>
+                <Text>{file?.name}</Text>
+              </Dropzone.Accept>
+              <Dropzone.Reject>File không hợp lệ</Dropzone.Reject>
+              <Text size="xl">Kéo thả hoặc nhấn vào đây để tải file lên</Text>
+              <Text size="sm" color="dimmed" mt={7}>
+                Tối đa 10MB, định dạng xlsx,xls
+              </Text>
+            </Group>
           </Dropzone>
           {file && (
-            <Center my="sm">
+            <Center mt="sm">
               <Button loading={loading} onClick={(e) => handleImport(e)}>
                 Tải lên
               </Button>
