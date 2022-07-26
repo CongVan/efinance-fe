@@ -35,17 +35,17 @@ export const Orders: React.FC = () => {
         dataIndex: 'code',
         key: 'code',
       },
-      {
-        title: 'Thời gian đặt hàng',
-        dataIndex: 'date',
-        key: 'date',
-        render: (date) => `${formatToLocalDate(date)}`,
-      },
-      {
-        title: 'Trạng thái đơn hàng',
-        dataIndex: 'status',
-        key: 'status',
-      },
+      // {
+      //   title: 'Thời gian đặt hàng',
+      //   dataIndex: 'date',
+      //   key: 'date',
+      //   render: (date) => `${formatToLocalDate(date)}`,
+      // },
+      // {
+      //   title: 'Trạng thái đơn hàng',
+      //   dataIndex: 'status',
+      //   key: 'status',
+      // },
       {
         title: 'Tổng doanh thu',
         dataIndex: 'total_income',
@@ -59,10 +59,11 @@ export const Orders: React.FC = () => {
         render: (payment) => formatCurrency(payment?.amount),
       },
       {
-        title: 'Ngày thanh toán',
+        title: 'Chênh lệch',
         dataIndex: 'payment',
-        key: 'payment_date',
-        render: (payment) => formatToLocalDate(payment?.date),
+        key: 'different',
+        render: (payment, record) =>
+          formatCurrency((record.total_income || 0) - (payment.amount || 0)),
       },
 
       {
