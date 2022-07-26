@@ -1,4 +1,4 @@
-import { Badge, Code, Group, Title } from '@mantine/core';
+import { Badge, Code, Group, Skeleton, Title } from '@mantine/core';
 import { Box } from '@mantine/core';
 
 export const AppContainer = ({

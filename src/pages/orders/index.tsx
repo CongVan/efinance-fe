@@ -105,3 +105,4 @@ export const Orders: React.FC = () => {
     </AppContainer>
   );
 };
+export default Orders;

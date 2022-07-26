@@ -29,3 +29,5 @@ export const PaymentHistoryImport = () => {
     </AppContainer>
   );
 };
+
+export default PaymentHistoryImport;

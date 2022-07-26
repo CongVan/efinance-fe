@@ -1,11 +1,8 @@
+/* eslint-disable no-undef */
 import { Box, Code, createStyles, Group, Navbar, ScrollArea } from '@mantine/core';
 import { IconBuildingStore, IconCash, IconGauge, IconShoppingCart } from '@tabler/icons';
 
 import { LinksGroup } from './LinkGroups';
-
-// import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
-// import { UserButton } from '../UserButton/UserButton';
-// import { Logo } from './Logo';
 
 const mockdata = [
   { label: 'Thống kê', icon: IconBuildingStore, link: '/' },
@@ -29,18 +26,6 @@ const mockdata = [
       { label: 'Lịch sử tải lên', link: '/payments/history-import' },
     ],
   },
-  // { label: 'Analytics', icon: IconPresentationAnalytics },
-  // { label: 'Contracts', icon: IconFileAnalytics },
-  // { label: 'Settings', icon: IconAdjustments },
-  // {
-  //   label: 'Security',
-  //   icon: IconLock,
-  //   links: [
-  //     { label: 'Enable 2FA', link: '/' },
-  //     { label: 'Change password', link: '/' },
-  //     { label: 'Recovery codes', link: '/' },
-  //   ],
-  // },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -88,12 +73,17 @@ export function AppNavbar({ opened }) {
     <Navbar
       hiddenBreakpoint="sm"
       hidden={!opened}
-      width={{ sm: 320 }}
+      width={{ sm: 280 }}
       className={classes.navbar}
     >
       <Navbar.Section grow component={ScrollArea}>
         {links}
       </Navbar.Section>
+      {__APP_VERSION__ && (
+        <Navbar.Section>
+          <Code color={'gray'}>Build {__APP_VERSION__}</Code>
+        </Navbar.Section>
+      )}
 
       {/* <Navbar.Section className={classes.footer}></Navbar.Section> */}
     </Navbar>

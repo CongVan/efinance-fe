@@ -83,3 +83,5 @@ export const Payments: React.FC = () => {
     </AppContainer>
   );
 };
+
+export default Payments;

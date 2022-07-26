@@ -59,3 +59,5 @@ export const Home = () => {
     </AppContainer>
   );
 };
+
+export default Home;

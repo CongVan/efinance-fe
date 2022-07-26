@@ -29,3 +29,5 @@ export const OrderHistoryImport = () => {
     </AppContainer>
   );
 };
+
+export default OrderHistoryImport;

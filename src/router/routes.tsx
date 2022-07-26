@@ -1,12 +1,13 @@
+import { lazy } from 'react';
 import type { PathRouteProps } from 'react-router-dom';
 
-import { Home } from '@/pages/home';
-import { Orders } from '@/pages/orders';
-import { OrderHistoryImport } from '@/pages/orders/history-import';
-import { Payments } from '@/pages/payments';
-import { PaymentHistoryImport } from '@/pages/payments/history-import';
+const Home = lazy(() => import('@/pages/home/Home'));
+const Orders = lazy(() => import('@/pages/orders'));
+const OrderHistoryImport = lazy(() => import('@/pages/orders/history-import'));
+const Payments = lazy(() => import('@/pages/payments'));
+const PaymentHistoryImport = lazy(() => import('@/pages/payments/history-import'));
 
-export const routes: Array<PathRouteProps> = [
+export const privateRoutes: Array<PathRouteProps> = [
   {
     path: '/',
     element: <Home />,
@@ -29,4 +30,4 @@ export const routes: Array<PathRouteProps> = [
   },
 ];
 
-export const privateRoutes: Array<PathRouteProps> = [];
+export const routes: Array<PathRouteProps> = [];

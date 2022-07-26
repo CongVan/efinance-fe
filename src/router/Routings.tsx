@@ -18,7 +18,7 @@ import { privateRoutes, routes } from './routes';
 const Routings = () => {
   return (
     <Routes>
-      {routes.map((routeProps) => (
+      {routes.map(({ ...routeProps }) => (
         <Route {...routeProps} key={routeProps.path as string} />
       ))}
       {privateRoutes.map(({ element, ...privateRouteProps }) => (
