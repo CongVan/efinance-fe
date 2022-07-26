@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import { Box, Code, createStyles, Group, Navbar, ScrollArea } from '@mantine/core';
-import { IconBuildingStore, IconCash, IconGauge, IconShoppingCart } from '@tabler/icons';
+import { Code, createStyles, Navbar, ScrollArea } from '@mantine/core';
+import { IconBuildingStore, IconCash, IconShoppingCart } from '@tabler/icons';
 
 import { LinksGroup } from './LinkGroups';
 

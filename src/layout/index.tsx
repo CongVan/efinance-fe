@@ -1,36 +1,13 @@
 import {
-  ActionIcon,
-  Button,
-  Container,
-  createStyles,
-  Group,
-  Space,
-  Stack,
-  UnstyledButton,
-} from '@mantine/core';
-import {
-  Accordion,
   AppShell,
-  Aside,
   Burger,
-  Divider,
   Header,
   MediaQuery,
-  Menu,
-  Navbar,
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import React, { useState } from 'react';
-import {
-  Link,
-  NavLink,
-  To,
-  useMatch,
-  useNavigate,
-  useResolvedPath,
-} from 'react-router-dom';
-import { Box, CurrencyDollar, Dashboard } from 'tabler-icons-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { AppNavbar } from '@/components/common';
 

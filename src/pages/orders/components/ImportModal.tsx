@@ -1,9 +1,8 @@
 import { Box, Button, Center, Group, Modal, Text } from '@mantine/core';
-import { Dropzone, MS_EXCEL_MIME_TYPE } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stack } from 'tabler-icons-react';
 
 import { SelectionList } from '@/components/platform';
 

@@ -1,23 +1,7 @@
-import {
-  Box,
-  Collapse,
-  createStyles,
-  Group,
-  NavLink,
-  NavLinkProps,
-  Text,
-  ThemeIcon,
-  UnstyledButton,
-} from '@mantine/core';
-import {
-  IconCalendarStats,
-  IconChevronLeft,
-  IconChevronRight,
-  IconNotes,
-  TablerIcon,
-} from '@tabler/icons';
-import { FC, ReactNode, useMemo, useState } from 'react';
-import { Link, useLocation, useMatch, useResolvedPath } from 'react-router-dom';
+import { createStyles, NavLink, NavLinkProps, ThemeIcon } from '@mantine/core';
+import { TablerIcon } from '@tabler/icons';
+import { FC, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = createStyles((theme, { active, isChildren }: any) => {
   console.log('====================================');
