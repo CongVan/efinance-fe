@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import type { PathRouteProps } from 'react-router-dom';
 
+import { VerifyOrderPage } from '@/pages/verify-order';
+
 const Home = lazy(() => import('@/pages/home/Home'));
 const Orders = lazy(() => import('@/pages/orders'));
 const OrderHistoryImport = lazy(() => import('@/pages/orders/history-import'));
@@ -27,6 +29,10 @@ export const privateRoutes: Array<PathRouteProps> = [
   {
     path: '/payments/history-import',
     element: <PaymentHistoryImport />,
+  },
+  {
+    path: '/verify-order',
+    element: <VerifyOrderPage />,
   },
 ];
 

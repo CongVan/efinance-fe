@@ -1,10 +1,12 @@
 import { Box, Button, Center, Group, Modal, Text } from '@mantine/core';
-import { Dropzone, MS_EXCEL_MIME_TYPE } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import React, { useRef, useState } from 'react';
-import { Stack } from 'tabler-icons-react';
+import React, { useState } from 'react';
+import useSWR, { useSWRConfig } from 'swr';
 
+import { getJobStatistic } from '@/api/job';
 import { SelectionList } from '@/components/platform';
+import { ACCEPT_IMPORT_EXCEL } from '@/constants';
 
 import { importPayment } from '../query';
 
@@ -13,6 +15,26 @@ export const ImportModal: React.FC = () => {
   const [platform, setPlatform] = useState('shopee');
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File>(null);
+
+  const [isJobRunning, setIsJobRunning] = useState(false);
+  const { mutate } = useSWRConfig();
+  const [refreshInterval, setRefreshInterval] = useState(0);
+  const { data, isValidating } = useSWR(
+    'job-statistic-payment',
+    () => getJobStatistic({ name: 'import_payment_shopee' }),
+    {
+      refreshInterval: refreshInterval,
+      onSuccess(data) {
+        const isRunning = data.running > 0 || data.pending > 0;
+        if (isRunning) {
+          setRefreshInterval(1000);
+        } else {
+          setRefreshInterval(0);
+        }
+        setIsJobRunning(isRunning);
+      },
+    },
+  );
 
   const handleImport = async (e: MouseEvent) => {
     try {
@@ -28,6 +50,7 @@ export const ImportModal: React.FC = () => {
         });
         setOpened(false);
         setFile(null);
+        mutate('job-statistic-payment');
       }
     } catch (error) {
       showNotification({ color: 'red', message: error.message });
@@ -43,7 +66,9 @@ export const ImportModal: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => setOpened(true)}>Tải lên dữ liệu</Button>
+      <Button onClick={() => setOpened(true)} disabled={isValidating || isJobRunning}>
+        {isJobRunning ? 'Đang xử lý...' : 'Tải lên dữ liệu'}
+      </Button>
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
@@ -53,7 +78,7 @@ export const ImportModal: React.FC = () => {
         <SelectionList onSelected={setPlatform} />
         <Box mt={'md'}>
           <Dropzone
-            accept={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
+            accept={ACCEPT_IMPORT_EXCEL}
             maxSize={10 * 1024 ** 2}
             loading={loading}
             onDrop={onDrop}

@@ -1,4 +1,12 @@
+export enum EJobStatus {
+  PENDING = 'pending',
+  IN_PROGRESS = 'in_progress',
+  DONE = 'done',
+  FAIL = 'fail',
+}
+
 export type JobStatus = 'pending' | 'in_progress' | 'done' | 'fail';
+
 export const JOB_STATUS = {
   pending: 'Đang thực hiện',
   in_progress: 'Đang thực hiện',

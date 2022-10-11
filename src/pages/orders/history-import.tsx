@@ -25,7 +25,7 @@ export const OrderHistoryImport = () => {
       title={`Lịch sử tải lên đơn hàng`}
       count={formatNumber(meta?.total_rows)}
     >
-      <HistoryImport name={'import_order'} onSuccess={onSuccess} />
+      <HistoryImport name={'import_order_shopee'} onSuccess={onSuccess} />
     </AppContainer>
   );
 };

@@ -1,31 +1,49 @@
 /* eslint-disable no-undef */
 import { Code, createStyles, Navbar, ScrollArea } from '@mantine/core';
-import { IconBuildingStore, IconCash, IconShoppingCart } from '@tabler/icons';
+import { IconBuildingStore, IconPackage, IconReportMoney } from '@tabler/icons';
 
 import { LinksGroup } from './LinkGroups';
 
 const mockdata = [
-  { label: 'Thống kê', icon: IconBuildingStore, link: '/' },
+  { label: 'Tổng quan', icon: IconBuildingStore, link: '/' },
   {
-    label: 'Đơn hàng',
-    icon: IconShoppingCart,
+    label: 'Đối xoát doanh thu',
     initiallyOpened: true,
-    link: '/orders',
+    icon: IconReportMoney,
+    link: '/',
     links: [
-      { label: 'Danh sách', link: '/orders' },
-      { label: 'Lịch sử tải lên', link: '/orders/history-import' },
+      {
+        label: 'Đơn hàng',
+        link: '/orders',
+      },
+      {
+        label: 'Thanh toán',
+        link: '/payments',
+      },
     ],
   },
-  {
-    label: 'Thanh toán',
-    icon: IconCash,
-    initiallyOpened: true,
-    link: '/payments',
-    links: [
-      { label: 'Danh sách', link: '/payments' },
-      { label: 'Lịch sử tải lên', link: '/payments/history-import' },
-    ],
-  },
+  { label: 'Đối xoát hàng hoá', link: '/verify-order', icon: IconPackage },
+  // { label: 'Đối xoát' },
+  // {
+  //   label: 'Đơn hàng',
+  //   icon: IconShoppingCart,
+  //   initiallyOpened: true,
+  //   link: '/orders',
+  //   links: [
+  //     { label: 'Danh sách', link: '/orders' },
+  //     // { label: 'Lịch sử tải lên', link: '/orders/history-import' },
+  //   ],
+  // },
+  // {
+  //   label: 'Thanh toán',
+  //   icon: IconCash,
+  //   initiallyOpened: true,
+  //   link: '/payments',
+  //   links: [
+  //     { label: 'Danh sách', link: '/payments' },
+  //     // { label: 'Lịch sử tải lên', link: '/payments/history-import' },
+  //   ],
+  // },
 ];
 
 const useStyles = createStyles((theme) => ({

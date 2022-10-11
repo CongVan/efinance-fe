@@ -25,7 +25,7 @@ export const PaymentHistoryImport = () => {
       title={`Lịch sử tải lên thanh toán`}
       count={formatNumber(meta?.total_rows)}
     >
-      <HistoryImport name={'import_payment'} onSuccess={onSuccess} />
+      <HistoryImport name={'import_payment_shopee'} onSuccess={onSuccess} />
     </AppContainer>
   );
 };

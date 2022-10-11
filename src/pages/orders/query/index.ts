@@ -28,3 +28,8 @@ export const getHistoryImportOrders = async (params) => {
   });
   return data;
 };
+
+export const getIsJobRunning = async (params) => {
+  const { data } = await ApiClient.get('/orders/check-job-running');
+  return data;
+};

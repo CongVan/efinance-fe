@@ -16,12 +16,12 @@ export const Home = () => {
   }, [data]);
 
   return (
-    <AppContainer title={'Dashboard'}>
+    <AppContainer title={'Tổng quan'}>
       {!data && !error ? (
         <Loader />
       ) : (
         <>
-          <Grid grow>
+          <Grid columns={3}>
             <Grid.Col md={1}>
               <Card>
                 <Stack

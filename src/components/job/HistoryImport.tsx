@@ -12,7 +12,7 @@ import { Job, JOB_STATUS, JobStatus } from '@/types/job';
 import { Meta } from '@/types/meta';
 
 import { getJobs } from './query';
-type JobNameType = 'import_order' | 'import_payment';
+type JobNameType = 'import_order_shopee' | 'import_payment_shopee';
 
 export const HistoryImport: React.FC<{
   name: JobNameType;

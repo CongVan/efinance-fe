@@ -88,7 +88,12 @@ export function LinksGroup({
 
   return (
     <>
-      <NavLinkCustom label={label} link={link} icon={icon}>
+      <NavLinkCustom
+        initiallyOpened
+        label={label}
+        link={hasLinks ? '' : link}
+        icon={icon}
+      >
         {hasLinks && (
           <>
             {links.map((item) => {
