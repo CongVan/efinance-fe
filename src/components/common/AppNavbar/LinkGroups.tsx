@@ -4,9 +4,6 @@ import { FC, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = createStyles((theme, { active, isChildren }: any) => {
-  console.log('====================================');
-  console.log('pa', active);
-  console.log('====================================');
   return {
     root: {},
     label: {
@@ -49,7 +46,8 @@ const NavLinkCustom: FC<LinksGroupProps & NavLinkProps> = ({
   const active = useMemo(() => {
     const currentRootPath = location.pathname.split('/');
     const linkRootPath = props.link?.split('/');
-    return currentRootPath && currentRootPath[1] === linkRootPath[1] && !isChildren;
+
+    return currentRootPath && currentRootPath[1] === linkRootPath[1];
   }, [location]);
 
   const { classes, theme } = useStyles({ active, isChildren } as any);
@@ -77,23 +75,12 @@ const NavLinkCustom: FC<LinksGroupProps & NavLinkProps> = ({
   );
 };
 
-export function LinksGroup({
-  icon,
-  label,
-  link,
-  initiallyOpened,
-  links,
-}: LinksGroupProps) {
+export function LinksGroup({ icon, label, link, links }: LinksGroupProps) {
   const hasLinks = Array.isArray(links);
 
   return (
     <>
-      <NavLinkCustom
-        initiallyOpened
-        label={label}
-        link={hasLinks ? '' : link}
-        icon={icon}
-      >
+      <NavLinkCustom label={label} link={hasLinks ? '' : link} icon={icon}>
         {hasLinks && (
           <>
             {links.map((item) => {

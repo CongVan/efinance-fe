@@ -21,4 +21,11 @@ export const defaultRange = (): [Date, Date] => {
   return [last30Day, toDay];
 };
 
+export const defaultRangeFilter = (): { start_date: string; end_date: string } => {
+  return {
+    start_date: formatDateFilter(defaultRange[0]),
+    end_date: formatDateFilter(defaultRange[1]),
+  };
+};
+
 export const formatDateFilter = (date: Date) => dayjs(date).format('YYYY-MM-DD');

@@ -1,11 +1,9 @@
 import './App.css';
 
-import { MantineProvider } from '@mantine/core';
+import { Loader, MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
-import { useEffect, useMemo } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import useSWR, { SWRConfig } from 'swr';
-import { validate } from 'uuid';
 
 import Routings from '@/router/Routings';
 
@@ -36,7 +34,15 @@ function App() {
       <MantineProvider>
         <NotificationsProvider position="top-right">
           <Router>
-            <Layout>{isValidating ? <>Loading...</> : <Routings />}</Layout>
+            <Layout>
+              {isValidating ? (
+                <>
+                  <Loader variant="dots" />
+                </>
+              ) : (
+                <Routings />
+              )}
+            </Layout>
           </Router>
         </NotificationsProvider>
       </MantineProvider>

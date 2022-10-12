@@ -1,21 +1,20 @@
 import 'dayjs/locale/vi';
 
-import { Badge, Button, Grid, Select } from '@mantine/core';
-import { DateRangePicker } from '@mantine/dates';
-import dayjs from 'dayjs';
+import { ActionIcon, Badge, CopyButton, Text, Tooltip } from '@mantine/core';
+import { IconCheck, IconCopy } from '@tabler/icons';
+import { isEmpty } from 'lodash';
 import qs from 'qs';
 import { ColumnsType } from 'rc-table/lib/interface';
-import { ColumnProps } from 'rc-table/lib/sugar/Column';
 // import { usePagination } from '@mantine/hooks';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 
 import { AppContainer } from '@/components/common';
 import { ETable } from '@/components/ui';
-import { defaultRange, formatDateFilter, formatToLocalDate } from '@/lib/date';
+import { DEFAULT_FILTER_SHOPEE } from '@/constants';
+import { formatToLocalDate } from '@/lib/date';
 import { formatCurrency, formatNumber } from '@/lib/format';
-import { Meta } from '@/types/meta';
 import { Order } from '@/types/order';
 
 import { Filter, ImportModal } from './components';
@@ -24,7 +23,8 @@ export const Orders: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   const params = useMemo(() => {
-    return qs.parse(searchParams.toString());
+    const p = qs.parse(searchParams.toString());
+    return isEmpty(p) ? DEFAULT_FILTER_SHOPEE : p;
   }, [searchParams]);
   const { data, error } = useSWR(['/orders', params], getOrders);
 
@@ -34,13 +34,40 @@ export const Orders: React.FC = () => {
         title: 'Mã đơn',
         dataIndex: 'code',
         key: 'code',
+        render: (code) => {
+          return (
+            <CopyButton value={code} timeout={2000}>
+              {({ copied, copy }) => (
+                <Tooltip
+                  label={copied ? 'Đã sao chép' : 'Sao chép'}
+                  withArrow
+                  position="right"
+                >
+                  <Text
+                    sx={{
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'baseline',
+                    }}
+                    onClick={copy}
+                  >
+                    {code}
+                    <ActionIcon color={copied ? 'teal' : 'gray'}>
+                      {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
+                    </ActionIcon>
+                  </Text>
+                </Tooltip>
+              )}
+            </CopyButton>
+          );
+        },
       },
-      // {
-      //   title: 'Thời gian đặt hàng',
-      //   dataIndex: 'date',
-      //   key: 'date',
-      //   render: (date) => `${formatToLocalDate(date)}`,
-      // },
+      {
+        title: 'Thời gian đặt hàng',
+        dataIndex: 'date',
+        key: 'date',
+        render: (date) => `${formatToLocalDate(date)}`,
+      },
       // {
       //   title: 'Trạng thái đơn hàng',
       //   dataIndex: 'status',

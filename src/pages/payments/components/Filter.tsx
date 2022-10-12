@@ -64,12 +64,12 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
 
   return (
     <>
-      <Grid columns={4}>
-        <Grid.Col span={1}>
+      <Grid>
+        <Grid.Col sm={4} md={3}>
           <DateRangePicker
             locale="vi"
             amountOfMonths={2}
-            label={'Thời gian'}
+            label={'Thời gian tải lên'}
             defaultValue={defaultDate}
             value={dates}
             allowLevelChange={false}

@@ -14,7 +14,7 @@ const RequireAuth = ({ children, redirectTo = '/login' }: PrivateRouteProps) => 
   return isAuthenticated ? (
     <React.Suspense
       fallback={
-        <Center>
+        <Center sx={{ height: 150 }}>
           <Loader variant="dots" />
         </Center>
       }

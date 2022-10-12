@@ -1,7 +1,8 @@
-import { Grid, NativeSelect, Select, Text } from '@mantine/core';
+import { Grid, Input, MultiSelect, NativeSelect, Select, Text } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
+import { useDebouncedState } from '@mantine/hooks';
 import dayjs from 'dayjs';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { defaultRange, formatDateFilter } from '@/lib/date';
 const buildRangeFromFilter = (filter): [Date, Date] => {
@@ -23,15 +24,20 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
   }, [props.filter]);
 
   const [dates, setDates] = useState(defaultDate);
-  const [filter, setFilter] = useState<{ date: [Date, Date]; verify_status: string }>({
+  const [filter, setFilter] = useState<{
+    date: [Date, Date];
+    verify_status: string;
+    order: string;
+  }>({
     ...props.filter,
   });
   const [verifyStatus, setVerifyStatus] = useState(props.filter?.verify_status || '');
+  const [order, setOrder] = useDebouncedState(props.filter?.order || '', 400);
 
   const [isMounted, setIsMounted] = useState(false);
 
   const defaultFilter = useMemo(() => {
-    return { source: 'shopee', sort: 'date desc' };
+    return { source: 'shopee' };
   }, []);
 
   const onChangeDate = (d: [Date | null, Date | null]) => {
@@ -67,14 +73,19 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
     setFilter({ ...filter, verify_status: verifyStatus });
   }, [verifyStatus]);
 
+  useEffect(() => {
+    if (!isMounted) return;
+    setFilter({ ...filter, order: order });
+  }, [order]);
+
   return (
     <div>
-      <Grid columns={4}>
-        <Grid.Col span={1}>
+      <Grid>
+        <Grid.Col sm={4} md={2}>
           <DateRangePicker
             locale="vi"
             amountOfMonths={2}
-            label={'Thời gian'}
+            label={'Thời gian tải lên'}
             defaultValue={defaultDate}
             value={dates}
             allowLevelChange={false}
@@ -82,7 +93,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
             // onDropdownClose={() => setFilter({ ...filter, date: dates })}
           />
         </Grid.Col>
-        <Grid.Col span={1}>
+        <Grid.Col sm={4} md={2}>
           <Select
             label="Đối soát"
             data={[
@@ -93,6 +104,11 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
             dropdownComponent="div"
             onChange={setVerifyStatus}
           />
+        </Grid.Col>
+        <Grid.Col sm={4} md={2}>
+          <Input.Wrapper label="Mã đơn">
+            <Input onChange={(e) => setOrder(e.target.value)} defaultValue={order} />
+          </Input.Wrapper>
         </Grid.Col>
       </Grid>
     </div>

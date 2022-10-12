@@ -6,6 +6,8 @@ import { Meta } from '@/types/meta';
 import { Order } from '@/types/order';
 
 export const getOrders = async (params) => {
+  console.log('get orders', params);
+
   const { data } = await ApiClient.get<Meta<Order[]>>('/orders', { params });
   return data;
 };

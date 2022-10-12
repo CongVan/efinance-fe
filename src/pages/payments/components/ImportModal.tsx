@@ -30,6 +30,7 @@ export const ImportModal: React.FC = () => {
           setRefreshInterval(1000);
         } else {
           setRefreshInterval(0);
+          mutate('/payments');
         }
         setIsJobRunning(isRunning);
       },

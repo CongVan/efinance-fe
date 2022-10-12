@@ -1,31 +1,30 @@
 import 'dayjs/locale/vi';
 
-import { Button, Grid, Select } from '@mantine/core';
-import { DateRangePicker } from '@mantine/dates';
-import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 import qs from 'qs';
 import { ColumnsType } from 'rc-table/lib/interface';
-import { ColumnProps } from 'rc-table/lib/sugar/Column';
 // import { usePagination } from '@mantine/hooks';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 
 import { AppContainer } from '@/components/common';
 import { ETable } from '@/components/ui';
-import { useTablePagination } from '@/hooks/use_table_pagination';
-import { defaultRange, formatDateFilter, formatToLocalDate } from '@/lib/date';
+import { DEFAULT_FILTER_SHOPEE } from '@/constants';
+import { formatToLocalDate } from '@/lib/date';
 import { formatCurrency, formatNumber } from '@/lib/format';
-import { Meta } from '@/types/meta';
 import { Order } from '@/types/order';
 
 import { Filter, ImportModal } from './components';
 import { getPayments } from './query';
+
 export const Payments: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   const params = useMemo(() => {
-    return qs.parse(searchParams.toString());
+    const p = qs.parse(searchParams.toString());
+
+    return isEmpty(p) ? DEFAULT_FILTER_SHOPEE : p;
   }, [searchParams]);
 
   const { data, error } = useSWR(['/payments', params], getPayments);

@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from 'axios';
-
 import { ApiClient } from '@/lib/request';
 import { Job } from '@/types/job';
 import { Meta } from '@/types/meta';
