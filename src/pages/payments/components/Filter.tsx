@@ -34,9 +34,6 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
 
   const onChangeDate = (d: [Date | null, Date | null]) => {
     if (!isMounted) return;
-    console.log('====================================');
-    console.log('date change');
-    console.log('====================================');
     setDates(d);
     if (d[0] === null || d[1] === null) {
       return;

@@ -1,12 +1,14 @@
-import { AxiosRequestConfig } from 'axios';
-
 import { ApiClient } from '@/lib/request';
-import { Job } from '@/types/job';
-import { Meta } from '@/types/meta';
-import { Payment } from '@/types/payment';
-interface Statistics {
+
+export interface Statistics {
   orders: {
     total: number;
+    fail: number;
+    success: number;
+    total_income: number;
+    delivered_rate: number;
+    undelivered_rate: number;
+    total_discount_shop: number;
   };
   payment: {
     total_amount: number;

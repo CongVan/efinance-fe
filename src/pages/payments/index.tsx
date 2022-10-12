@@ -57,8 +57,6 @@ export const Payments: React.FC = () => {
     [],
   );
 
-  const refetch = () => {};
-
   const meta = useMemo(() => {
     return data?.pagination;
   }, [data]);

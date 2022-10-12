@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { defaultRange, formatDateFilter } from '@/lib/date';
+import { OrderVerifyStatus } from '@/types/order';
 const buildRangeFromFilter = (filter): [Date, Date] => {
   const { start_date, end_date } = filter;
   let [startDate, endDate] = defaultRange();
@@ -81,7 +82,7 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
   return (
     <div>
       <Grid>
-        <Grid.Col sm={4} md={2}>
+        <Grid.Col sm={4} md={3}>
           <DateRangePicker
             locale="vi"
             amountOfMonths={2}
@@ -97,8 +98,8 @@ export const Filter: FC<{ filter: any; onChange: (f) => void }> = (props) => {
           <Select
             label="Đối soát"
             data={[
-              { value: 'OK', label: 'Đúng' },
-              { value: 'WRONG', label: 'Sai' },
+              { value: OrderVerifyStatus.OK, label: 'Đúng' },
+              { value: OrderVerifyStatus.WRONG, label: 'Sai' },
             ]}
             value={verifyStatus}
             dropdownComponent="div"

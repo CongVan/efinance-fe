@@ -2,7 +2,7 @@ import 'dayjs/locale/vi';
 
 import { ActionIcon, Badge, CopyButton, Text, Tooltip } from '@mantine/core';
 import { IconCheck, IconCopy } from '@tabler/icons';
-import { isEmpty } from 'lodash';
+import deepmerge from 'deepmerge';
 import qs from 'qs';
 import { ColumnsType } from 'rc-table/lib/interface';
 // import { usePagination } from '@mantine/hooks';
@@ -24,7 +24,7 @@ export const Orders: React.FC = () => {
 
   const params = useMemo(() => {
     const p = qs.parse(searchParams.toString());
-    return isEmpty(p) ? DEFAULT_FILTER_SHOPEE : p;
+    return deepmerge(p, DEFAULT_FILTER_SHOPEE);
   }, [searchParams]);
   const { data, error } = useSWR(['/orders', params], getOrders);
 

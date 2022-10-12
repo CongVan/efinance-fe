@@ -9,7 +9,6 @@ import {
   TableProps,
   Text,
 } from '@mantine/core';
-import qs from 'qs';
 import Table from 'rc-table';
 import { CustomizeComponent, TableComponents } from 'rc-table/lib/interface';
 import { TableProps as RCTableProps } from 'rc-table/lib/Table';
@@ -17,6 +16,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { PAGE_SIZE } from '@/constants';
+import { parseParameter, stringifyParameter } from '@/lib/parameter';
 
 const Cell = ({ children, ...props }) => (
   <td {...props}>
@@ -78,7 +78,7 @@ export const ETable: FC<
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = useMemo(() => {
-    return qs.parse(searchParams.toString());
+    return parseParameter(searchParams.toString());
   }, [searchParams]);
 
   const [isMounted, setIsMounted] = useState(false);
@@ -92,18 +92,18 @@ export const ETable: FC<
   }, []);
 
   useEffect(() => {
-    const params = qs.parse(searchParams.toString());
+    const params = parseParameter(searchParams.toString());
     console.log(params);
   }, [searchParams]);
 
   useEffect(() => {
     if (!isMounted) return;
-    setSearchParams(qs.stringify({ page, limit, sort, filter }));
+    setSearchParams(stringifyParameter({ page, limit, sort, filter }));
   }, [page, limit]);
 
   useEffect(() => {
     if (!isMounted) return;
-    setSearchParams(qs.stringify({ page: 1, limit, sort, filter }));
+    setSearchParams(stringifyParameter({ page: 1, limit, sort, filter }));
   }, [filter]);
 
   const onChangeFilter = (f) => {

@@ -27,3 +27,8 @@ export interface Order {
   voucher_shop_price: number;
   ward: string;
 }
+
+export enum OrderVerifyStatus {
+  OK = 'OK',
+  WRONG = 'WRONG',
+}
